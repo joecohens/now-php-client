@@ -1,0 +1,7 @@
+{
+    "name": "joecohens/now-php-client",
+    "description": "A PHP wrapper for Zeit Now API",
+    "type": "library",
+    "license": "MIT",
+    "require": {}
+}
