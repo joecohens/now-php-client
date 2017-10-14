@@ -7,11 +7,12 @@ interface ClientInterface
     /**
      * Get a client instance.
      *
-     * @param string $apiKey
+     * @param string      $apiKey
+     * @param string|null $teamId
      *
      * @return mixed
      */
-    public function getClient($apiKey);
+    public function getClient($apiKey, $teamId = null);
 
     /**
      * Make a get request.

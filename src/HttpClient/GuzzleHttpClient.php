@@ -36,10 +36,35 @@ class GuzzleHttpClient
      */
     protected $client;
 
-    public function getClient($apiKey)
+    /**
+     * The api key.
+     *
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
+     * The team id.
+     *
+     * @var string
+     */
+    protected $teamId;
+
+    /**
+     * Get a client instance.
+     *
+     * @param string      $apiKey
+     * @param string|null $teamId
+     *
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient($apiKey, $teamId = null)
     {
+        $this->apiKey = $apiKey;
+        $this->teamId = $teamId;
+
         $headers = [
-            'Authorization' => 'Bearer: '.$apiKey,
+            'Authorization' => 'Bearer: '.$this->apiKey,
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json',
         ];
@@ -150,7 +175,7 @@ class GuzzleHttpClient
     protected function request($verb, $url, $payload = '')
     {
         try {
-            $request = in_array($verb, ['GET', 'DELETE']) ? [] : $this->buildPayload($payload);
+            $request = $this->buildPayload($verb, $payload);
 
             $response = $this->client->{$verb}($url, $request);
         } catch (RequestException $e) {
@@ -165,13 +190,22 @@ class GuzzleHttpClient
     /**
      * Build payload for request.
      *
+     * @param string       $verb
      * @param string|array $payload
      *
      * @return array
      */
-    protected function buildPayload($payload = '')
+    protected function buildPayload($verb, $payload = '')
     {
         $options = [];
+
+        if ($this->teamId) {
+            $options['query'] = ['teamId' => $this->teamId];
+        }
+
+        if (in_array($verb, ['GET', 'DELETE'])) {
+            return $options;
+        }
 
         $body = version_compare(ClientInterface::VERSION, '6') === 1 ? 'form_params' : 'body';
 

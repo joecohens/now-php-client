@@ -23,13 +23,6 @@ class Now
         Secrets;
 
     /**
-     * The api key.
-     *
-     * @var string
-     */
-    protected $apiKey;
-
-    /**
      * The client instance.
      *
      * @var \Joecohens\Now\HttpClient\ClientInterface
@@ -40,11 +33,13 @@ class Now
      * Create a new Now instance.
      *
      * @param string                                         $apiKey
+     * @param string                                         $teamId
      * @param \Joecohens\Now\HttpClient\ClientInterface|null $client
      */
-    public function __construct($apiKey, ClientInterface $client = null)
+    public function __construct($apiKey, $teamId = null, ClientInterface $client = null)
     {
-        $this->apiKey = $apiKey;
-        $this->client = $client ? $client->getClient($apiKey) : (new GuzzleHttpClient())->getClient($apiKey);
+        $this->client = $client
+            ? $client->getClient($apiKey, $teamId)
+            : (new GuzzleHttpClient())->getClient($apiKey, $teamId);
     }
 }
