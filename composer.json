@@ -1,6 +1,6 @@
 {
     "name": "joecohens/now-php-client",
-    "description": "A PHP wrapper for Zeit Now API",
+    "description": "A PHP 5.4+ wrapper for the Now Instant API Edit",
     "type": "library",
     "license": "MIT",
     "require": {
