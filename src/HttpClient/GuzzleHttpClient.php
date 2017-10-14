@@ -62,6 +62,11 @@ class GuzzleHttpClient
         return $this->request('PUT', $url, $payload);
     }
 
+    public function patch($url, $payload = '')
+    {
+        return $this->request('PATCH', $url, $payload);
+    }
+
     public function delete($url, $payload = '')
     {
         return $this->request('DELETE', $url, $payload);
