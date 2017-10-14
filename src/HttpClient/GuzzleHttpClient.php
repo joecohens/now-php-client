@@ -5,8 +5,8 @@ namespace Joecohens\Now\HttpClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Joecohens\Now\Exceptions\HttpException;
@@ -39,7 +39,7 @@ class GuzzleHttpClient
                 'base_url' => $this->$baseUrl,
                 'defaults' => [
                     'timeout'  => $this->timeout,
-                    'headers' => $headers,
+                    'headers'  => $headers,
                 ],
             ]);
         }

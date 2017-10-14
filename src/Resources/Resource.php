@@ -14,7 +14,7 @@ class Resource
     /**
      * Create a new resource instance.
      *
-     * @param  array $attributes
+     * @param array $attributes
      *
      * @return void
      */
