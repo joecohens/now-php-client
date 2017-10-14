@@ -5,10 +5,12 @@ namespace Joecohens\Now;
 use Joecohens\Now\HttpClient\ClientInterface;
 use Joecohens\Now\HttpClient\GuzzleHttpClient;
 use Joecohens\Now\Requests\Deployments;
+use Joecohens\Now\Requests\Files;
 
 class Now
 {
     use Deployments;
+    use Files;
 
     protected $apiKey;
     protected $client;
