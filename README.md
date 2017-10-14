@@ -22,7 +22,7 @@ require __DIR__.'/../vendor/autoload.php';
 Create an instance of the Now Client:
 
 ```php
-$now = new Jeocohens\Now\Now(API_TOKEN);
+$now = new Jeocohens\Now\Now(API_TOKEN, TEAM_ID);
 ```
 
 Use any of the resource enpoints:
