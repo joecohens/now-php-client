@@ -5,11 +5,15 @@ namespace Joecohens\Now;
 use Joecohens\Now\HttpClient\ClientInterface;
 use Joecohens\Now\HttpClient\GuzzleHttpClient;
 use Joecohens\Now\Requests\Deployments;
+use Joecohens\Now\Requests\Domains;
+use Joecohens\Now\Requests\DomainRecords;
 use Joecohens\Now\Requests\Files;
 
 class Now
 {
     use Deployments;
+    use Domains;
+    use DomainRecords;
     use Files;
 
     protected $apiKey;
