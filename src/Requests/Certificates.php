@@ -30,7 +30,7 @@ trait Certificates
     {
         $this->client->post('now/certs', [
             'domains' => [$cn],
-            'renew'   => true
+            'renew'   => true,
         ]);
     }
 

@@ -2,8 +2,6 @@
 
 namespace Joecohens\Now\Requests;
 
-use Joecohens\Now\Resources\Secret;
-
 trait Secrets
 {
     public function secrets()

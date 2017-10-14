@@ -7,8 +7,8 @@ use Joecohens\Now\HttpClient\GuzzleHttpClient;
 use Joecohens\Now\Requests\Aliases;
 use Joecohens\Now\Requests\Certificates;
 use Joecohens\Now\Requests\Deployments;
-use Joecohens\Now\Requests\Domains;
 use Joecohens\Now\Requests\DomainRecords;
+use Joecohens\Now\Requests\Domains;
 use Joecohens\Now\Requests\Files;
 use Joecohens\Now\Requests\Secrets;
 
