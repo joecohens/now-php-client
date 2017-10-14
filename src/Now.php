@@ -4,6 +4,7 @@ namespace Joecohens\Now;
 
 use Joecohens\Now\HttpClient\ClientInterface;
 use Joecohens\Now\HttpClient\GuzzleHttpClient;
+use Joecohens\Now\Requests\Alias;
 use Joecohens\Now\Requests\Certificates;
 use Joecohens\Now\Requests\Deployments;
 use Joecohens\Now\Requests\Domains;
@@ -12,6 +13,7 @@ use Joecohens\Now\Requests\Files;
 
 class Now
 {
+    use Alias;
     use Certificates;
     use Deployments;
     use Domains;
