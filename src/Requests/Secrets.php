@@ -9,7 +9,7 @@ trait Secrets
     public function secrets()
     {
         return array_map(function ($attributes) {
-            return new Certificate($attributes);
+            return new Secret($attributes);
         }, $this->client->get('now/secrets')['secrets']);
     }
 
