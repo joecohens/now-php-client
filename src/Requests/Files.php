@@ -3,6 +3,7 @@
 namespace Joecohens\Now\Requests;
 
 use Joecohens\Now\Resources\File;
+use Joecohens\Now\Resources\FileContent;
 
 trait Files
 {
@@ -15,6 +16,6 @@ trait Files
 
     public function file($id, $fileId)
     {
-        return new File(['content' => $this->client->get('deployments/'.$id.'/files/'.$fileId)]);
+        return new FileContent(['content' => $this->client->get('deployments/'.$id.'/files/'.$fileId)]);
     }
 }
