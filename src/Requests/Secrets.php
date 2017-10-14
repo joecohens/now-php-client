@@ -15,14 +15,6 @@ trait Secrets
 
     public function createSecret($name, $value)
     {
-        if (!$name) {
-            // Exeption
-        }
-
-        if (!$value) {
-            // Exeption
-        }
-
         $this->client->post('now/secrets', [
             'name'  => $name,
             'value' => $value,
@@ -31,14 +23,6 @@ trait Secrets
 
     public function renameSecret($id, $name)
     {
-        if (!$id) {
-            // Exeption
-        }
-
-        if (!$name) {
-            // Exeption
-        }
-
         $this->client->patch('now/secrets'.$id, [
             'name' => $name,
         ]);
@@ -46,10 +30,6 @@ trait Secrets
 
     public function deleteSecret($id)
     {
-        if (!$id) {
-            // Exeption
-        }
-
         $this->client->delete('now/secrets/'.$id);
     }
 }

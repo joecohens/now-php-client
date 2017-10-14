@@ -23,5 +23,4 @@ class NowClientTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Joecohens\Now\Resources\Deployment', $now->deployments()[0]);
     }
-
 }

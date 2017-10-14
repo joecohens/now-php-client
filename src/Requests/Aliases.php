@@ -21,14 +21,6 @@ trait Aliases
 
     public function createAlias($id, $alias)
     {
-        if (!$id) {
-            // Exeption
-        }
-
-        if (!$alias) {
-            // Exeption
-        }
-
         $this->client->post('now/deployments/'.$id.'/aliases', [
             'alias' => $alias,
         ]);
@@ -36,10 +28,6 @@ trait Aliases
 
     public function deleteAlias($id)
     {
-        if (!$id) {
-            // Exeption
-        }
-
         $this->client->delete('now/aliases/'.$id);
     }
 }

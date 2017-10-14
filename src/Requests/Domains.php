@@ -15,10 +15,6 @@ trait Domains
 
     public function addDomain($name, $isExternalDNS = false)
     {
-        if (!$name) {
-            // Exeption
-        }
-
         $this->client->post('domains', [
             'name'       => $name,
             'isExternal' => $isExternalDNS,
@@ -27,10 +23,6 @@ trait Domains
 
     public function deleteDomain($name)
     {
-        if (!$name) {
-            // Exeption
-        }
-
         $this->client->delete('domains/'.$name);
     }
 }

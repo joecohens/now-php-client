@@ -21,10 +21,6 @@ trait Certificates
 
     public function createCertificate($cn)
     {
-        if (!$cn) {
-            // Exeption
-        }
-
         $this->client->post('now/certs', [
             'domains' => [$cn],
         ]);
@@ -32,10 +28,6 @@ trait Certificates
 
     public function renewDeployment($cn)
     {
-        if (!$cn) {
-            // Exeption
-        }
-
         $this->client->post('now/certs', [
             'domains' => [$cn],
             'renew'   => true
@@ -44,10 +36,6 @@ trait Certificates
 
     public function replaceCertificate($cn, $cert, $key, $ca)
     {
-        if (!$cn) {
-            // Exeption
-        }
-
         $this->client->put('now/certs', [
             'domains' => [$cn],
             'ca'      => $ca,
@@ -58,10 +46,6 @@ trait Certificates
 
     public function deleteCertificate($cn)
     {
-        if (!$cn) {
-            // Exeption
-        }
-
         $this->client->delete('now/certs/'.$cn);
     }
 }
