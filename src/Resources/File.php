@@ -31,11 +31,4 @@ class File extends Resource
      * @var string
      */
     public $type;
-
-    /**
-     * The file content.
-     *
-     * @var string
-     */
-    public $content;
 }

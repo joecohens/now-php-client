@@ -15,14 +15,56 @@ use Psr\Http\Message\ResponseInterface;
 
 class GuzzleHttpClient
 {
+    /**
+     * The base api url.
+     *
+     * @var string
+     */
     protected $baseUrl = 'https://api.zeit.co/now/';
+
+    /**
+     * The default request timeout.
+     *
+     * @var string
+     */
     protected $timeout = '30000';
+
+    /**
+     * The Guzzle client instance.
+     *
+     * @var \GuzzleHttp\Client
+     */
     protected $client;
 
-    public function getClient($apiKey)
+    /**
+     * The api key.
+     *
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
+     * The team id.
+     *
+     * @var string
+     */
+    protected $teamId;
+
+    /**
+     * Get a client instance.
+     *
+     * @param string      $apiKey
+     * @param string|null $teamId
+     *
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient($apiKey, $teamId = null)
     {
+        $this->apiKey = $apiKey;
+        $this->teamId = $teamId;
+
         $headers = [
-            'Authorization' => 'Bearer: '.$apiKey,
+            'Authorization' => 'Bearer: '.$this->apiKey,
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json',
         ];
@@ -47,35 +89,93 @@ class GuzzleHttpClient
         return $this;
     }
 
+    /**
+     * Make a get request.
+     *
+     * @param string $url
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return mixed
+     */
     public function get($url)
     {
         return $this->request('GET', $url);
     }
 
+    /**
+     * Make a post request.
+     *
+     * @param string       $url
+     * @param string|array $payload
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return array
+     */
     public function post($url, $payload = '')
     {
         return $this->request('POST', $url, $payload);
     }
 
+    /**
+     * Make a put request.
+     *
+     * @param string       $url
+     * @param string|array $payload
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return array
+     */
     public function put($url, $payload = '')
     {
         return $this->request('PUT', $url, $payload);
     }
 
+    /**
+     * Make a patch request.
+     *
+     * @param string       $url
+     * @param string|array $payload
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return array
+     */
     public function patch($url, $payload = '')
     {
         return $this->request('PATCH', $url, $payload);
     }
 
+    /**
+     * Make a delete request.
+     *
+     * @param string       $url
+     * @param string|array $payload
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return array
+     */
     public function delete($url, $payload = '')
     {
         return $this->request('DELETE', $url, $payload);
     }
 
+    /**
+     * Make request with Guzzle.
+     *
+     * @param string       $verb
+     * @param string       $url
+     * @param string|array $payload
+     *
+     * @return mixed
+     */
     protected function request($verb, $url, $payload = '')
     {
         try {
-            $request = in_array($verb, ['GET', 'DELETE']) ? [] : $this->buildPayload($payload);
+            $request = $this->buildPayload($verb, $payload);
 
             $response = $this->client->{$verb}($url, $request);
         } catch (RequestException $e) {
@@ -87,9 +187,25 @@ class GuzzleHttpClient
         return json_decode($responseBody, true) ?: $responseBody;
     }
 
+    /**
+     * Build payload for request.
+     *
+     * @param string       $verb
+     * @param string|array $payload
+     *
+     * @return array
+     */
     protected function buildPayload($verb, $payload = '')
     {
         $options = [];
+
+        if ($this->teamId) {
+            $options['query'] = ['teamId' => $this->teamId];
+        }
+
+        if (in_array($verb, ['GET', 'DELETE'])) {
+            return $options;
+        }
 
         $body = version_compare(ClientInterface::VERSION, '6') === 1 ? 'form_params' : 'body';
 
@@ -98,6 +214,15 @@ class GuzzleHttpClient
         return $options;
     }
 
+    /**
+     * Handle request error.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     *
+     * @throws \Joecohens\Now\Exceptions\HttpException
+     *
+     * @return void
+     */
     protected function handleRequestError(ResponseInterface $response)
     {
         $body = (string) $response->getBody();
@@ -108,6 +233,11 @@ class GuzzleHttpClient
         throw new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
 
+    /**
+     * Create a Guzzle 6 middleware handler.
+     *
+     * @return \GuzzleHttp\HandlerStack
+     */
     protected function handler()
     {
         $stack = HandlerStack::create();

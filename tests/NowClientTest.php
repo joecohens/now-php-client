@@ -13,9 +13,9 @@ class NowClientTest extends PHPUnit_Framework_TestCase
         $apiKey = 'test_key';
 
         $client = Mockery::mock('Joecohens\Now\HttpClient\ClientInterface');
-        $client->shouldReceive('getClient')->with($apiKey)->andReturnSelf();
+        $client->shouldReceive('getClient')->with($apiKey, null)->andReturnSelf();
 
-        $now = new \Joecohens\Now\Now($apiKey, $client);
+        $now = new \Joecohens\Now\Now($apiKey, null, $client);
 
         $client->shouldReceive('get')->once()->with('deployments')->andReturn(
             ['deployments' => [['key' => 'value']]]
