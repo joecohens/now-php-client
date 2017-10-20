@@ -65,7 +65,7 @@ $now->deleteDomainRecord($domain, $recordId);
 ```php
 $now->certificates($cn);
 $now->createCertificate($cn);
-$now->renewDeployment($cn);
+$now->renewCertificate($cn);
 $now->replaceCertificate($cn, $cert, $key, $ca);
 $now->deleteCertificate($cn);
 ```

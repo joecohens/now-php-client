@@ -26,7 +26,7 @@ trait Certificates
         ]);
     }
 
-    public function renewDeployment($cn)
+    public function renewCertificate($cn)
     {
         $this->client->post('now/certs', [
             'domains' => [$cn],
