@@ -14,13 +14,13 @@ use Joecohens\Now\Requests\Secrets;
 
 class Now
 {
-    use Aliases,
-        Certificates,
-        Deployments,
-        Domains,
-        DomainRecords,
-        Files,
-        Secrets;
+    use Aliases;
+    use Certificates;
+    use Deployments;
+    use Domains;
+    use DomainRecords;
+    use Files;
+    use Secrets;
 
     /**
      * The client instance.
